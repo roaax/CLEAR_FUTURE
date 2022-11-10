@@ -36,15 +36,15 @@ Python Final Project | Tuwaiq Academy
     
     
 ##  User Stories:
-- Consulting site for graduates
-    -- user : Adivser 
+    - Consulting site for graduates
+        -- user : Adivser 
                 - As an Adivser I want to log in using my email & password so that I can use the website.
                 - As an Adivser I want to list all my appointment for today so that I can prepare to meet the graduates.
                 - As an Adviser I want to be able to accept or deny an appointment so that i can have a flixble meeting.
                 - As a Adviser I want to be able to edit my profile by update any old information/add a new experience so that I can give a graduates more info about me.
                 - As an Adviser I want to be able to determine a salary of my session so that I can also get financial benefit .
 
-    -- user : Graduates
+        -- user : Graduates
                 - As a Graduate I want to log in using my email & password so that I can use the website.
                 - As a Graduate I want to be able to book an appointment so that I can orgnize my appointmets and be prepare for the session.
                 - As a Graduate I want to list all my appointment for today so that I can prepare to meet the Adivsers.

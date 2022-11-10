@@ -2,7 +2,7 @@
 Python Final Project | Tuwaiq Academy 
 
 ## Project Description:
-    "Clear Future": A site that serves graduates who face a problem in knowing and defining their career path through meetings with consultants who help them find out the most appropriate path for them and clarify the requirements of this path such as (professional certificates and the required skills)
+- "Clear Future": A site that serves graduates who face a problem in knowing and defining their career path through meetings with consultants who help them find out the most appropriate path for them and clarify the requirements of this path such as (professional certificates and the required skills)
 
 ## Features List:
     - Providing advice to graduates in various speciality

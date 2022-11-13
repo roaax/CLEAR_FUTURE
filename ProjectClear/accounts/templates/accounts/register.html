@@ -1,0 +1,126 @@
+{% extends 'AppClear/base.html' %}
+
+
+{% block content %}
+<div class="container col-4">
+    <h1 class="text-center">Welcome To Clear Future Website!</h1>
+
+    <form action="{% url 'accounts:register_user' %}" method="POST" enctype="multipart/form-data" class="container d-flex flex-column gap-2 ">
+      {% csrf_token %}
+        <h1 class="h3 mb-3 fw-normal text-center">Join Us Now :)! </h1>
+        <div class="col-md-12">
+          <div class="form-label">Profile Image</div>
+          <input type="file" name="image" accept="image/*" class="form-control" />
+          </div>
+        <div class="col-md-12">
+          <label for="floatingInput">First Name</label>
+          <input type="text" class="form-control" id="floatingInput"  name="first_name">
+        </div>
+
+        <div class="col-md-12">
+          <label for="floatingInput">Last Name</label>
+          <input type="text" class="form-control" id="floatingInput"  name="last_name">
+        </div>
+
+        <div class="col-md-12">
+          <label for="floatingInput">User Name</label>
+            <input type="text" class="form-control" id="floatingInput" name="username">
+          </div>
+          
+          <div class="col-md-12">
+            <label for="floatingInput">Age</label>
+            <input type="text" class="form-control" id="floatingInput"  name="age">
+          </div>
+          <select onchange="adjustForm(this)" name="role">
+            <option value="">SELECT ROLE</option>
+            <option value="Adviser">Adviser</option>
+            <option value="Graduate">Graduate</option>
+        </select>
+        <div id="additionalData">
+
+        </div>
+        <div class="result">
+        <div class="col-md-12">
+          <label for="floatingInput">Session Salary</label>
+          <input type="text" class="form-control" id="floatingInput"  name="session_salary"> $  
+        </div>
+        </div>
+          <div class="mb-3">
+            <label  class="form-label">Specialization</label>
+            <select id="pet-select" name="specialization">
+              <option value="">--Please choose your specialization--</option>
+              <!-- {% for choice in user.specialization_choices %}
+                <option value="{{ choice }}">{{ choice }}</option>
+                {% endfor %} -->
+                <option value="Computer Sience">Computer Sience</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="CyberSecurity">CyberSecurity</option> 
+                <option value="Archaeology">Archaeology</option> 
+                <option value="Philosophy">Philosophy</option>  
+                <option value="Chemistry">Chemistry</option>  
+                <option value="Architectural Engineering">Architectural Engineering</option>  
+                <option value="Business Administration">Business Administration</option>  
+                <option value="Art Education">Art Education</option>  
+                <option value="Economics">Economics</option>  
+                <option value="Physics">Physics</option>
+            </select>
+          </div>
+
+            <div class="col-md-12">
+              <label for="floatingInput">Tell Us About Your Self</label>
+              <textarea type="text" class="form-control" id="floatingInput"  name="description"></textarea>
+            </div>
+        
+          <div class="col-md-12">
+            <label for="floatingInput">Email address</label>
+            <input type="email" class="form-control" id="floatingInput" name="email">
+          </div>
+
+        <div class="col-md-12">
+          <label for="floatingPassword">Password</label>
+          <input type="password" class="form-control" id="floatingPassword"  name="password">
+        </div>
+
+        <div class="col-md-12">
+          <label  class="form-label">Upload your CV </label>
+          <input type="file" name="cv"  accept="file/*" class="form-control" />
+          </div>
+        <button class="w-100 btn btn-lg btn-primary"  style="background-color: #006d77; color: white;" type="submit">Sign up</button>
+        <a class="text-center "    style=" color: darkslategrey;" href="{% url 'accounts:login_user' %}">I already have an account</a>
+        <form action="">
+
+      </form>
+  
+  
+      </form>
+      <script>
+          
+          function adjustForm(element){
+              let additionalContainer = document.getElementById("additionalData");
+              if(element.value === "Adviser"){
+                  let html = 
+                  `
+                  <div class="mb-3">
+                      <label for="salary">Salary $</label>
+                      <input type="text" name="salary" class="form-control" />
+                  </div>
+                  <div class="mb-3">
+                      <label for="upload">CV</label>
+                      <input type="file" name="cv" class="form-control" />
+                  </div>
+                  `;
+                  additionalContainer.innerHTML = html;
+              }else if(element.value === "Graduate"){
+                  additionalContainer.innerHTML = ""
+              }else{
+                  additionalContainer.innerHTML = ""
+              }
+          }
+      </script>
+
+</div>
+
+{% endblock%}
+
+
+

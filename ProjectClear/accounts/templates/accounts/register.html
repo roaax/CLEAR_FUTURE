@@ -39,12 +39,7 @@
         <div id="additionalData">
 
         </div>
-        <div class="result">
-        <div class="col-md-12">
-          <label for="floatingInput">Session Salary</label>
-          <input type="text" class="form-control" id="floatingInput"  name="session_salary"> $  
-        </div>
-        </div>
+        
           <div class="mb-3">
             <label  class="form-label">Specialization</label>
             <select id="pet-select" name="specialization">
@@ -81,10 +76,6 @@
           <input type="password" class="form-control" id="floatingPassword"  name="password">
         </div>
 
-        <div class="col-md-12">
-          <label  class="form-label">Upload your CV </label>
-          <input type="file" name="cv"  accept="file/*" class="form-control" />
-          </div>
         <button class="w-100 btn btn-lg btn-primary"  style="background-color: #006d77; color: white;" type="submit">Sign up</button>
         <a class="text-center "    style=" color: darkslategrey;" href="{% url 'accounts:login_user' %}">I already have an account</a>
         <form action="">
@@ -102,7 +93,7 @@
                   `
                   <div class="mb-3">
                       <label for="salary">Salary $</label>
-                      <input type="text" name="salary" class="form-control" />
+                      <input type="text" name="session_salary" class="form-control" />
                   </div>
                   <div class="mb-3">
                       <label for="upload">CV</label>

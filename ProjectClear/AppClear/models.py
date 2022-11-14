@@ -10,7 +10,7 @@ class Appointment(models.Model):
     def __str__(self) -> str:
         return f"{self.appointment_date}"
 
-
+# we need ( adviser id and current user id )
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
@@ -21,9 +21,9 @@ class Comment(models.Model):
 
 
 class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    like = models.ManyToManyField(User , related_name= "likes")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="graduate")
+    liked_user = models.ForeignKey(User , on_delete=models.CASCADE , related_name="like")
 
     def __str__(self):
-        return f"{self.user}, {self.content}"
+        return f"{self.user}, {self.liked_user}"
 

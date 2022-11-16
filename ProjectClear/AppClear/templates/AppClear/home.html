@@ -3,6 +3,7 @@
 {% block title %} Home Page {% endblock %}
 
 {% block content %}
+
 <div class="row">
     <div class="col-12">
         <div style="background-image: url('{% static 'imgs/background.jpg' %}')" class="content_inner animate__animated  animate__zoomIn">
@@ -19,7 +20,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for adviser in advisers %}
             <div class="col animate__animated  animate__zoomIn">
-                <div class="card shadow-sm p-4">
+                <div class="card shadow-sm p-4 " preserveAspectRatio="xMidYMid slice" >
                     <img class="bd-placeholder-img card-img-top" width="100%" height="225"
                         src="{{ adviser.image.url }}" role="img" 
                         preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -35,7 +36,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="{% url 'AppClear:reserve_session' adviser.user.id %}" type="button" class="btn btn-sm btn-outline-secondary">Reserve a session</a>
-                                <a href="" type="button" class="btn btn-sm btn-outline-secondary">About Adviser</a>
+                                <a href="{% url 'AppClear:adviser_profile' adviser.user.id %}" type="button" class="btn btn-sm btn-outline-secondary">About Adviser</a>
                             </div>
                             <small class="text-muted">{{adviser.role}}</small>
                         </div>

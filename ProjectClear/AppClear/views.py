@@ -18,16 +18,20 @@ def home(request : HttpRequest):
     return render(request, "AppClear/home.html", {'advisers': advisers , 'specializations' : specializations} )
 
 
-def checkout(request : HttpRequest):
-    ''' Checkout Page Function'''
-    return render(request, "AppClear/checkout.html" )
+def checkout(request : HttpRequest , adviser_id : int ):
+    ''' Checkout Page Function to Reserve a session with an advisor '''
+    adviser = User.objects.get(id=adviser_id)
+    if request.method == "POST":
+        appointment = Appointment.objects.create(user = request.user , adviser = adviser , appointment_date =request.POST["appointment_date"])
+        appointment.save()
+        
+        return redirect("AppClear:home")
+    else:
+        return render(request, "AppClear/checkout.html" , {"adviser" : adviser })
 
 def reserve_session(request : HttpRequest , adviser_id : int):
     ''' Reserve a Session Page Function'''
-
-
     try:
-
         user= User.objects.get(id=adviser_id)
         adviser = Profile.objects.get(user=user)
         comments = Comment.objects.filter(adviser=adviser_id)
@@ -35,22 +39,15 @@ def reserve_session(request : HttpRequest , adviser_id : int):
         liked = False
 
 
-        if not request.user.is_authenticated:
+        if not (request.user.is_authenticated and request.user.has_perm("AppClear.add_like")):
             liked_before = Like.objects.filter(liked_user=user)
             liked = False
         else:
             liked_before = Like.objects.filter(user=request.user, liked_user=user)
             if len(liked_before) > 0:
                 liked = True
-        # if request.method == 'POST':
-        #     add_comment(request , user)
-
-
-
-
     except:
-        pass
-        # return render(request , "AppClear/not_found.html")
+        return render(request , "AppClear/not_found.html")
     return render(request, "AppClear/reserve_session.html" ,  {"adviser" : adviser, "comments" : comments ,"likes":likes, "liked":liked})
 
 
@@ -65,7 +62,6 @@ def add_comment(request : HttpRequest , adviser_id : int):
         adviser = User.objects.get(id=adviser_id)
         comment = Comment(adviser=adviser,user=request.user, content= request.POST['content'])
         comment.save()
-
     return redirect("AppClear:reserve_session", adviser_id)
 
 
@@ -73,7 +69,7 @@ def add_like(request : HttpRequest , adviser_id : int):
     ''' Like an Adviser Function'''
     user : User = request.user
 
-    if not user.is_authenticated:
+    if not (request.user.is_authenticated and request.user.has_perm("AppClear.add_like")):
         return redirect("accounts:login_user")
 
     adviser = User.objects.get(id=adviser_id)
@@ -117,10 +113,47 @@ def view_profile(request : HttpRequest):
     return render(request, "AppClear/view_profile.html", {"user" : request.user})
 
 def update_profile(request : HttpRequest):
-    ''' View Profile Function '''
+    ''' Update Profile Function '''
     return render(request, "AppClear/update_profile.html", {"user" : request.user})
 
 def specializations(request : HttpRequest , specialization_name):
+    ''' Search by specializations Function '''
     advisers = Profile.objects.filter(role="Adviser" ,specialization=specialization_name )
     return render(request, "AppClear/specializations.html", {'advisers': advisers, 'specialization': specialization_name})
 
+
+def adviser_profile(request : HttpRequest ,adviser_id : int):
+    ''' View an adviser profile Function '''
+    user= User.objects.get(id=adviser_id)
+    adviser = Profile.objects.get(user=user)
+    return render(request, "AppClear/adviser_profile.html", {"adviser" : adviser})
+
+def appointment(request : HttpRequest):
+    ''' Appointment Function to List appointments '''
+    if request.user.profile.role == Profile.user_type_choices.Adviser:
+        pending_appointments = Appointment.objects.filter(adviser=request.user , status="Pending")
+        Approved_appointments = Appointment.objects.filter(adviser=request.user , status="Approved")
+        return render(request, "AppClear/appointment.html", {"pending_appointments" : pending_appointments , "Approved_appointments" : Approved_appointments})
+    else:
+        appointments = Appointment.objects.filter(user=request.user)
+        return render(request, "AppClear/user_appointment.html", {  "appointments" : appointments})
+
+def approved_appointment(request : HttpRequest , appointment_id : int):
+    ''' Approved Appointment for Advisor Function '''
+    if request.method == "POST":
+        appointment = Appointment.objects.get(id=appointment_id)
+        appointment.status =  "Approved"
+        appointment.save()
+        return redirect("AppClear:appointment")
+
+def reject_appointment(request : HttpRequest , appointment_id : int):
+    '''Reject Appointment for Advisor'''
+    if request.method == "POST":
+        appointment = Appointment.objects.get(id=appointment_id)
+        appointment.status =  "Rejected"
+        appointment.save()
+        return redirect("AppClear:appointment")
+
+def about(request : HttpRequest):
+    ''' About Page Function '''
+    return render(request, "AppClear/about.html")

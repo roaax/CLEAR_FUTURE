@@ -215,15 +215,15 @@
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 850px;
-    background-color: rgba(51, 51, 51, 0.7);
+    min-height: 800px;
+    background-color: rgba(51, 51, 51, 0.571);
 }
 
 .content_inner {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    min-height: 850px;
+    min-height: 800px;
     background-position: center;
 }
 .content {

@@ -26,6 +26,8 @@
                 </div>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="{% url 'AppClear:home' %}" class="nav-link px-2 link-secondary">Home</a></li>
+                    <li><a href="{% url 'AppClear:appointment' %}" class="nav-link px-2 link-secondary">Appointments</a></li>
+
                     <li>
                         <div class="dropdown text-end">
                     <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle nav-link"  role="button" data-bs-toggle="dropdown"
@@ -59,7 +61,7 @@
                     </a>
                     <ul class="dropdown-menu text-small">
                         <li><a class="dropdown-item" href="{% url 'AppClear:view_profile' %}">Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url 'AppClear:update_profile' %}">Settings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:update_profile' user.id %}">Settings</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -73,7 +75,7 @@
     </header>
 
     <!-- Content -->
-    <div class="" style="font-family: 'Libre Baskerville', serif;">
+    <div class="gap-2" style="font-family: 'Libre Baskerville', serif;">
         {% block content %}
         {%endblock%}
     </div>
@@ -88,9 +90,8 @@
             </div>
             <ul class="nav col-md-4 justify-content-end">
                 <li class="nav-item"><a href="{% url 'AppClear:home' %}" class="nav-link px-2 text-muted">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Join Us</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+                <li class="nav-item"><a href="{% url 'accounts:register_user' %}" class="nav-link px-2 text-muted">Join Us</a></li>
+                <li class="nav-item"><a href="{% url 'AppClear:about' %}" class="nav-link px-2 text-muted">About</a></li>
             </ul>
         </footer>
     </div>

@@ -12,5 +12,11 @@ urlpatterns = [
     path("delete/<adviser_id>/<comment_id>/", views.delete_comment, name="delete_comment"),
     path("profile/", views.view_profile, name="view_profile"),
     path("profile/update/", views.update_profile, name="update_profile"),
-    path("checkout/", views.checkout, name="checkout"),
+    path("adviser_profile/<adviser_id>/", views.adviser_profile, name="adviser_profile"),
+    path("checkout/<adviser_id>/", views.checkout, name="checkout"),
+    path("appointment/approve/<appointment_id>/", views.approved_appointment, name="approved_appointment"),
+    path("appointment/reject/<appointment_id>/", views.reject_appointment, name="reject_appointment"),
+    path("appointment/", views.appointment, name="appointment"),
+    path("about/", views.about, name="about"),
+
 ]

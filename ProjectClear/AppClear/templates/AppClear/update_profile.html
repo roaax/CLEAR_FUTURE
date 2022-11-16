@@ -1,8 +1,51 @@
 {% extends "AppClear/base.html" %}
 {% load static %}
-{% block title %} Update Profile  {% endblock %}
+{% block title %} Update Profile   {% endblock %}
 
 {% block content %}
-<h1>This is Update Profile Page</h1>
+
+<form action="" method="POST" enctype="multipart/form-data" class="container d-flex flex-column gap-2 ">
+    {% csrf_token %}
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{user.profile.image.url}}" accept="image/*"><span class="font-weight-bold mt-2">{{user.username}}</span><span class="text-black-50">{{user.email}}</span><span> </span></div>
+            </div>
+            
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">First Name</label><input type="text" class="form-control" name="first_name" value="{{user.first_name}}"></div>
+                        <div class="col-md-6"><label class="labels">Last Name</label><input type="text" class="form-control" name="last_name" value="{{user.last_name}}"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Username</label><input type="text" class="form-control" name="username" value="{{user.username}}"></div>
+                        <div class="col-md-12"><label class="labels mt-2">Email</label><input type="text" class="form-control" name="email" value="{{user.email}}"></div>
+                        <div class="col-md-12"><label class="labels mt-2">Description </label><textarea type="text" class="form-control" name="description" value="{{user.profile.description}}">{{user.profile.description}}</textarea></div>
+                        
+                    </div>
+                    <div class="row mt-3">
+                        {% if user.profile.role == user.profile.user_type_choices.Adviser%}
+                        <div class="col-md-6"><label class="labels">Session Salary</label><input type="text" class="form-control" name="session_salary" value="{{user.profile.session_salary}}"></div>
+                        <div class="col-md-6"><label class="labels ">CV</label><input type="file" class="form-control" name="cv" value="{{user.profile.cv.url}}" ></div>
+                        {% else %}
+                        <div class="col-md-6"><label class="labels">Age</label><input type="text" class="form-control"  name="age" value="{{user.profile.age}}"></div>
+                        {% endif %}
+                    </div>
+                    <div class="mt-5 text-center">
+                        <a class="btn btn-primary profile-button text-dark" href="{% url 'AppClear:home'%}" style="background-color: #b3c9c7; " type="submit">Cancle</a>
+
+                        <button class="btn btn-primary profile-button" style="background-color: #2a9d8f;" type="submit">Save Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</form>
 
 {% endblock %}

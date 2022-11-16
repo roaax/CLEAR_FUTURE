@@ -14,9 +14,9 @@ class Profile(models.Model):
     role  = models.CharField(max_length=64, choices = user_type_choices.choices, default=user_type_choices.Gradute)
     specialization = models.CharField(max_length=2048, choices = specialization_choices.choices, default=specialization_choices.CyberSecurity)
 
-    session_salary = models.FloatField()
+    session_salary = models.FloatField(default=0.0)
     description = models.TextField()
-    cv = models.FileField(upload_to="cv/")
+    cv = models.FileField(upload_to="cv/", default='cv/')
 
     def __str__(self) -> str:
         return f"{self.role}, {self.age}"

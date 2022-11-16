@@ -8,12 +8,17 @@ from .models import Profile
 
 def register_user(request : HttpRequest):
     ''' Register User Function '''
+
+
     if request.method == "POST":
         #creating the user
         new_user = User.objects.create_user(username=request.POST["username"], email= request.POST["email"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], password=request.POST["password"]   )
         new_user.save()
         #creating the Profile
-        profile = Profile( user=new_user , image= request.FILES["image"], age= request.POST["age"], role = request.POST["role"], specialization= request.POST["specialization"] , session_salary=request.POST["session_salary"], description=request.POST["description"] ,cv= request.FILES["cv"]  )
+        if request.POST.get("role") == Profile.user_type_choices.Adviser:
+            profile = Profile( user=new_user , image= request.FILES["image"], age= request.POST["age"], role = request.POST["role"], specialization= request.POST["specialization"] , session_salary=request.POST.get("session_salary", 0.0), description=request.POST["description"] , cv= request.FILES["cv"]  )
+        else:
+            profile = Profile(user=new_user , image= request.FILES["image"], age= request.POST["age"], role = request.POST["role"], specialization= request.POST["specialization"] , description=request.POST["description"])
         profile.save()
 
     

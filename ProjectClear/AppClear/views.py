@@ -8,9 +8,13 @@ from accounts.models import Profile
 
 def home(request : HttpRequest):
     ''' Home Page Function'''
-    #advisers = User.objects.all()
-    advisers = Profile.objects.filter(role="Adviser")
-    specializations = Profile.objects.filter(role="specialization")
+
+    if "search" in request.GET:
+        advisers = Profile.objects.filter(user__first_name__contains=request.GET["search"] ,role="Adviser")
+    else:
+        advisers = Profile.objects.filter(role="Adviser")
+
+    specializations = Profile.objects.all()
     return render(request, "AppClear/home.html", {'advisers': advisers , 'specializations' : specializations} )
 
 
@@ -20,32 +24,103 @@ def checkout(request : HttpRequest):
 
 def reserve_session(request : HttpRequest , adviser_id : int):
     ''' Reserve a Session Page Function'''
-    
+
+
     try:
+
         user= User.objects.get(id=adviser_id)
         adviser = Profile.objects.get(user=user)
-        comments = Comment.objects.filter(user= user)
-        liked_before = Like.objects.filter(user= request.user, liked_user=user).exists()
-        if request.method == 'POST':
-            add_comment(request , user)
-        if not liked_before:
-            add_like(request , user)
+        comments = Comment.objects.filter(adviser=adviser_id)
+        likes = Like.objects.filter(liked_user=user);
+        liked = False
+
+
+        if not request.user.is_authenticated:
+            liked_before = Like.objects.filter(liked_user=user)
+            liked = False
+        else:
+            liked_before = Like.objects.filter(user=request.user, liked_user=user)
+            if len(liked_before) > 0:
+                liked = True
+        # if request.method == 'POST':
+        #     add_comment(request , user)
+
+
+
+
     except:
-        return render(request , "AppClear/not_found.html")
-
-    likes = Like.objects.filter(liked_user=user)
-
-    return render(request, "AppClear/reserve_session.html" ,  {"adviser" : adviser, "comments" : comments , "likes":likes})
+        pass
+        # return render(request , "AppClear/not_found.html")
+    return render(request, "AppClear/reserve_session.html" ,  {"adviser" : adviser, "comments" : comments ,"likes":likes, "liked":liked})
 
 
-def add_comment(request : HttpRequest , adviser : User):
+def add_comment(request : HttpRequest , adviser_id : int):
     ''' Add Comment on Adviser Function'''
-    comment = Comment(user=adviser, content= request.POST['content'])
-    print(request.user)
-    comment.save()
+    user : User = request.user
+
+    if not (user.is_authenticated and user.has_perm("AppClear.add_comment")):
+        return redirect("accounts:login_user")
+
+    if request.method == "POST":
+        adviser = User.objects.get(id=adviser_id)
+        comment = Comment(adviser=adviser,user=request.user, content= request.POST['content'])
+        comment.save()
+
+    return redirect("AppClear:reserve_session", adviser_id)
 
 
-def add_like(request : HttpRequest , adviser : User):
+def add_like(request : HttpRequest , adviser_id : int):
     ''' Like an Adviser Function'''
-    new_like = Like(user = request.user, liked_user=adviser)
-    new_like.save()
+    user : User = request.user
+
+    if not user.is_authenticated:
+        return redirect("accounts:login_user")
+
+    adviser = User.objects.get(id=adviser_id)
+    liked_before = Like.objects.filter(user=request.user,liked_user=adviser)
+    if(len(liked_before) == 0):
+        new_like = Like(user=user, liked_user=adviser)
+        new_like.save()
+
+    return redirect("AppClear:reserve_session", adviser_id)
+
+def unlike(request : HttpRequest , adviser_id : int):
+    ''' Like an Adviser Function'''
+    user : User = request.user
+
+    if not user.is_authenticated:
+        return redirect("accounts:login_user")
+
+    adviser = User.objects.get(id=adviser_id)
+    liked_before = Like.objects.filter(user=request.user, liked_user=adviser)
+    if (len(liked_before) > 0):
+        liked_before.delete();
+
+    return redirect("AppClear:reserve_session", adviser_id)
+
+
+
+def delete_comment(request: HttpRequest, comment_id : int , adviser_id : int):
+        '''Delete Comment Function '''
+        try:
+            comment = Comment.objects.get(id=comment_id)
+            if comment.user == request.user:
+                comment.delete()
+        except:
+            return render(request , "AppClear/not_found.html")
+
+        return redirect("AppClear:reserve_session", adviser_id)
+
+
+def view_profile(request : HttpRequest):
+    ''' View Profile Function '''
+    return render(request, "AppClear/view_profile.html", {"user" : request.user})
+
+def update_profile(request : HttpRequest):
+    ''' View Profile Function '''
+    return render(request, "AppClear/update_profile.html", {"user" : request.user})
+
+def specializations(request : HttpRequest , specialization_name):
+    advisers = Profile.objects.filter(role="Adviser" ,specialization=specialization_name )
+    return render(request, "AppClear/specializations.html", {'advisers': advisers, 'specialization': specialization_name})
+

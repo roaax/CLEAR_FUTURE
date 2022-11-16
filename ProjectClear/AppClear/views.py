@@ -21,14 +21,15 @@ def home(request : HttpRequest):
 def checkout(request : HttpRequest , adviser_id : int ):
     ''' Checkout Page Function to Reserve a session with an advisor '''
     adviser = User.objects.get(id=adviser_id)
-    if request.method == "POST":
-        appointment = Appointment.objects.create(user = request.user , adviser = adviser , appointment_date =request.POST["appointment_date"])
-        appointment.save()
-        
-        return redirect("AppClear:home")
-    else:
-        return render(request, "AppClear/checkout.html" , {"adviser" : adviser })
-
+    if not request.user.profile.role == Profile.user_type_choices.Adviser:
+        if request.method == "POST":
+            appointment = Appointment.objects.create(user = request.user , adviser = adviser , appointment_date =request.POST["appointment_date"])
+            appointment.save()
+            
+            return redirect("AppClear:home")
+        else:
+            return render(request, "AppClear/checkout.html" , {"adviser" : adviser })
+    return redirect("AppClear:home")
 def reserve_session(request : HttpRequest , adviser_id : int):
     ''' Reserve a Session Page Function'''
     try:

@@ -9,7 +9,8 @@ class Appointment(models.Model):
     appointment_date = models.DateTimeField()
     # in Case adivser accepted the status will be changed to "Approved" else "Refused" , default is "Pending".
     status = models.TextField(default="Pending")
-
+    url = models.TextField(default="Wait until the advisor approve the meeting")
+    meeting_pwd = models.TextField(default="-")
     def __str__(self) -> str:
         return f"{self.appointment_date}"
 

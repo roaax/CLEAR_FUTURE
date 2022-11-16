@@ -1,32 +1,52 @@
 {% extends 'AppClear/base.html' %}
+{% load static %}
 
 
 {% block content %}
-<div class="container col-4">
-    <h1 class="text-center">Welcome Back To Clear Future Website!</h1>
+<style>
+  .form{
+    background-image: url("{% static 'imgs/img2.jpg' %}");
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+    height: 700px;
+    padding-top:7%;
+  }
+  #form{
+    background-color: rgba(0, 0, 0, 0.392);
+  }
+</style>
+
+<div class="form">
+  <div class="row">
+    <div class="col-2"></div>
+    <div id="form" class="col-8 mt-4  mb-4 p-3 rounded">
+    <h1 class="text-center text-light">Welcome Back To Clear Future Website!</h1>
+    <hr class="text-light">
     <div class="container mt-4 w-100 mx-auto">
       {% if msg %}
       <div class="alert alert-danger alert-dismissible fade show"
-          role="alert">
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          {{msg}}
-      </div>
-      {% endif %}
+      role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      {{msg}}
+    </div>
+    {% endif %}
   </div>
-    <form action="{% url 'accounts:login_user' %}" method="POST" class="container d-flex flex-column gap-2">
-      {% csrf_token %}
-        <h1 class="h3 mb-3 fw-normal text-center "> sign in </h1>
-        <div class="form-floating">
+  <form action="{% url 'accounts:login_user' %}" method="POST" class="container d-flex flex-column gap-2 w-50 mx-auto">
+    {% csrf_token %}
+        <div class="form-floating mt-4">
             <input type="text" class="form-control" id="floatingInput" placeholder="username" name="username">
             <label for="floatingInput">User Name</label>
           </div>
-        <div class="form-floating">
+        <div class="form-floating ">
           <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
           <label for="floatingPassword">Password</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" style="background-color: #006d77; color: white;" type="submit">Sign in</button>
-        <a class="text-center "    style=" color: darkslategrey;" href="{% url 'accounts:register_user' %}">I don't have an account</a>
+        <button class="w-100 btn btn-lg mt-3" style="background-color: #006d77; color: white;" type="submit">Sign in</button>
+        <a class="text-center mt-3 text-light" href="{% url 'accounts:register_user' %}">I don't have an account</a>
         
       </form>
+    </div>
+  </div>
 </div>
 {% endblock%}

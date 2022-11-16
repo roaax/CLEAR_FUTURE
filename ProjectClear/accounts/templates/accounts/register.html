@@ -1,109 +1,138 @@
 {% extends 'AppClear/base.html' %}
+{% load static %}
 
 
 {% block content %}
-<div class="container col-4">
-    <h1 class="text-center">Welcome To Clear Future Website!</h1>
+<style>
+  .form{
+    background-image: url("{% static 'imgs/img2.jpg' %}");
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+    color: aliceblue;
+  }
+  #form{
+    background-color: rgba(0, 0, 0, 0.392);
+  }
+</style>
 
-    <form action="{% url 'accounts:register_user' %}" method="POST" enctype="multipart/form-data" class="container d-flex flex-column gap-2 ">
-      {% csrf_token %}
-        <h1 class="h3 mb-3 fw-normal text-center">Join Us Now :)! </h1>
-        <div class="col-md-12">
-          <div class="form-label">Profile Image</div>
-          <input type="file" name="image" accept="image/*" class="form-control" />
-          </div>
-        <div class="col-md-12">
-          <label for="floatingInput">First Name</label>
-          <input type="text" class="form-control" id="floatingInput"  name="first_name">
-        </div>
-
-        <div class="col-md-12">
-          <label for="floatingInput">Last Name</label>
-          <input type="text" class="form-control" id="floatingInput"  name="last_name">
-        </div>
-
-        <div class="col-md-12">
-          <label for="floatingInput">User Name</label>
-            <input type="text" class="form-control" id="floatingInput" name="username">
-          </div>
-          
-          <div class="col-md-12">
-            <label for="floatingInput">Age</label>
-            <input type="text" class="form-control" id="floatingInput"  name="age">
-          </div>
-          <select onchange="adjustForm(this)" name="role">
-            <option value="">SELECT ROLE</option>
-            <option value="Adviser" name="role">Adviser</option>
-            <option value="Graduate" name="role">Graduate</option>
-        </select>
-        <div id="additionalData">
-
-        </div>
-        
-          <div class="mb-3">
-            <label  class="form-label">Specialization</label>
-            <select id="pet-select" name="specialization">
-              <option value="">--Please choose your specialization--</option>
-                <option value="Computer Sience">Computer Sience</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="CyberSecurity">CyberSecurity</option> 
-                <option value="Archaeology">Archaeology</option> 
-                <option value="Philosophy">Philosophy</option>  
-                <option value="Chemistry">Chemistry</option>  
-                <option value="Architectural Engineering">Architectural Engineering</option>  
-                <option value="Business Administration">Business Administration</option>  
-                <option value="Art Education">Art Education</option>  
-                <option value="Economics">Economics</option>  
-                <option value="Physics">Physics</option>
-            </select>
-          </div>
-
-            <div class="col-md-12">
-              <label for="floatingInput">Tell Us About Your Self</label>
-              <textarea type="text" class="form-control" id="floatingInput"  name="description"></textarea>
+<div class="form">
+    <div class="row">
+      <div class="col-2"></div>
+      <div id="form" class="col-8 mt-4  mb-4 p-3 rounded">
+        <h1 class="text-center mt-4">Welcome To Clear Future Website!</h1>
+          <hr class="text-light">
+          <form action="{% url 'accounts:register_user' %}" method="POST" enctype="multipart/form-data" class="container d-flex flex-column gap-2  ">
+            {% csrf_token %}
+            <div class="d-flex d-flex justify-content-between align-items-center mb-3">
+              <div class="col-6">
+                  <label class="fs-6">Join As: </label>
+                  <select onchange="adjustForm(this)" name="role">
+                    <option value="">SELECT ROLE</option>
+                    <option value="Adviser" name="role">Adviser</option>
+                    <option value="Graduate" name="role">Graduate</option>
+                  </select>
+              </div>
+              <div class="col-6">
+                <label class="fs-6">Specialization</label>
+                <select id="pet-select" name="specialization">
+                  <option value="">--Please choose your specialization--</option>
+                  <option value="Computer Sience">Computer Sience</option>
+                  <option value="Information Technology">Information Technology</option>
+                  <option value="CyberSecurity">CyberSecurity</option> 
+                  <option value="Archaeology">Archaeology</option> 
+                  <option value="Philosophy">Philosophy</option>  
+                  <option value="Chemistry">Chemistry</option>  
+                  <option value="Architectural Engineering">Architectural Engineering</option>  
+                  <option value="Business Administration">Business Administration</option>  
+                  <option value="Art Education">Art Education</option>  
+                  <option value="Economics">Economics</option>  
+                  <option value="Physics">Physics</option>
+                </select>
+              </div>
             </div>
-        
-          <div class="col-md-12">
-            <label for="floatingInput">Email address</label>
-            <input type="email" class="form-control" id="floatingInput" name="email">
-          </div>
 
-        <div class="col-md-12">
-          <label for="floatingPassword">Password</label>
-          <input type="password" class="form-control" id="floatingPassword"  name="password">
-        </div>
 
-        <button class="w-100 btn btn-lg btn-primary"  style="background-color: #006d77; color: white;" type="submit">Sign up</button>
-        <a class="text-center "    style=" color: darkslategrey;" href="{% url 'accounts:login_user' %}">I already have an account</a>
-  
-  
-      </form>
-      <script>
-          
-          function adjustForm(element){
-              let additionalContainer = document.getElementById("additionalData");
-              if(element.value === "Adviser"){
-                  let html = 
-                  `
-                  <div class="mb-3">
-                      <label for="session_salary">Salary $</label>
-                      <input type="text" name="session_salary" class="form-control" />
+              <div class="row">
+                <div class="col-4">
+                  <label for="floatingInput">First Name</label>
+                  <input type="text" class="form-control" id="floatingInput"  name="first_name">
+                </div>
+                <div class="col-4">
+                  <label for="floatingInput">Last Name</label>
+                  <input type="text" class="form-control" id="floatingInput"  name="last_name">
+                </div>
+                <div class="col-4">
+                  <label for="floatingInput">Age</label>
+                  <input type="text" class="form-control" id="floatingInput"  name="age">
+                </div>
+              </div>
+      
+              <div class="row">
+                <div class="col-6">
+                  <label for="floatingInput">User Name</label>
+                  <input type="text" class="form-control" id="floatingInput" name="username">
+                </div>
+                <div class="col-6">
+                  <label for="floatingInput">Email address</label>
+                  <input type="email" class="form-control" id="floatingInput" name="email">
+                </div>
+                </div>
+
+                <div class="row align-items-center">
+                  <div class="col-6">
+                    <label class="col-4">Profile Image</label>
+                    <input type="file" name="image" accept="image/*" class="form-control" />
                   </div>
-                  <div class="mb-3">
-                      <label for="upload">CV</label>
-                      <input type="file" name="cv" class="form-control" />
-                  </div>
-                  `;
-                  additionalContainer.innerHTML = html;
-              }else if(element.value === "Graduate"){
-                  additionalContainer.innerHTML = ""
-              }else{
-                  additionalContainer.innerHTML = ""
-              }
-          }
-      </script>
 
+                  <div class="col-6">
+                    <label for="floatingInput">Tell Us About Your Self</label>
+                    <textarea type="text" class="form-control" id="floatingInput"  name="description"></textarea>
+                  </div>
+                </div>
+
+              <div class="mt-4">
+                <div id="additionalData"></div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control w-50 " id="floatingPassword"  name="password">
+              </div>
+      
+              <button class="w-50 mx-auto btn btn-lg mt-2 "  style="background-color: #006d77; color: white;" type="submit">Sign up</button>
+              <a class="text-center text-light" href="{% url 'accounts:login_user' %}">I already have an account</a>
+            </form>
+      </div>
+  </div>
 </div>
+
+<script>
+    
+    function adjustForm(element){
+        let additionalContainer = document.getElementById("additionalData");
+        if(element.value === "Adviser"){
+            let html = 
+            `
+            <div class="row">
+              <div class="mb-3 col-6">
+                <label for="session_salary">Salary $</label>
+                <input type="text" name="session_salary" class="form-control" />
+            </div>
+            <div class="mb-3 col-6">
+                <label for="upload">CV</label>
+                <input type="file" name="cv" class="form-control" />
+            </div>
+            </div>
+            `;
+            additionalContainer.innerHTML = html;
+        }else if(element.value === "Graduate"){
+            additionalContainer.innerHTML = ""
+        }else{
+            additionalContainer.innerHTML = ""
+        }
+    }
+</script>
 
 {% endblock%}
 

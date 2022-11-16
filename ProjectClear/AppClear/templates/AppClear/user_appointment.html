@@ -3,7 +3,7 @@
 {% block title %} Update Profile   {% endblock %}
 
 {% block content %}
-<div class="container w-50 mx-auto mt-2">
+<div class="container w-100 mx-auto mt-2">
     All Appointments : 
     <table class="table">
         <thead>
@@ -13,6 +13,8 @@
                 <th> Appointment Date</th>
                 <th> Appointment status</th>
                 <th> Contact </th>
+                <th> Meeting Url</th>
+                <th> Meeting Password</th>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +37,12 @@
             {% else %}
             <td></td>
             {%endif%}
+            {%if appointment.status == "Approved"%}
+                <td><a href="{{appointment.url}}"> {{appointment.url}} </a></td>
+            {% else %}
+                <td> {{appointment.url}}</td>
+            {%endif%}
+                <td> {{appointment.meeting_pwd}} </td>
             </tr>
             {%endfor%}
         </tbody>

@@ -3,11 +3,11 @@
 {% block title %} Update Profile   {% endblock %}
 
 {% block content %}
-<div class="container w-75 mx-auto mt-2">
-    New Session request:
+<div class="container w-100 mx-auto mt-2 mb-4">
+    <h3>New Session request: </h3>
     <table class="table">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th>ID</th>
                 <th>Client Name</th>
                 <th> Appointment Date</th>
@@ -17,7 +17,7 @@
         </thead>
         <tbody>
             {%for appointment in pending_appointments%}
-            <tr>
+            <tr class="text-center">
                 <td> {{appointment.id}} </td>
                 <td> {{appointment.user.first_name}}  {{appointment.user.last_name}}</td>
                 <td> {{appointment.appointment_date}} </td>
@@ -48,10 +48,10 @@
     </table>
 
     
-    Approved Appointments : 
-    <table class="table">
+    <h3 class="mt-4"> Approved Appointments : </h3>
+    <table class="table" >
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th>ID</th>
                 <th>Client Name</th>
                 <th> Appointment Date</th>
@@ -62,7 +62,7 @@
         </thead>
         <tbody>
             {%for appointment in Approved_appointments%}
-            <tr>
+            <tr class="text-center">
                 <td> {{appointment.id}} </td>
                 <td> {{appointment.user.first_name}}  {{appointment.user.last_name}}</td>
                 <td> {{appointment.appointment_date}} </td>

@@ -27,7 +27,7 @@
             <div class="d-flex d-flex justify-content-between align-items-center mb-3">
               <div class="col-6">
                   <label class="fs-6">Join As: </label>
-                  <select onchange="adjustForm(this)" name="role">
+                  <select onchange="adjustForm(this)" name="role" required>
                     <option value="">SELECT ROLE</option>
                     <option value="Adviser" name="role">Adviser</option>
                     <option value="Graduate" name="role">Graduate</option>
@@ -35,7 +35,7 @@
               </div>
               <div class="col-6">
                 <label class="fs-6">Specialization</label>
-                <select id="pet-select" name="specialization">
+                <select id="pet-select" name="specialization" required>
                   <option value="">--Please choose your specialization--</option>
                   <option value="Computer Sience">Computer Sience</option>
                   <option value="Information Technology">Information Technology</option>
@@ -56,38 +56,38 @@
               <div class="row">
                 <div class="col-4">
                   <label for="floatingInput">First Name</label>
-                  <input type="text" class="form-control" id="floatingInput"  name="first_name">
+                  <input type="text" class="form-control" id="floatingInput"  name="first_name" required>
                 </div>
                 <div class="col-4">
                   <label for="floatingInput">Last Name</label>
-                  <input type="text" class="form-control" id="floatingInput"  name="last_name">
+                  <input type="text" class="form-control" id="floatingInput"  name="last_name" required>
                 </div>
                 <div class="col-4">
                   <label for="floatingInput">Age</label>
-                  <input type="text" class="form-control" id="floatingInput"  name="age">
+                  <input type="text" class="form-control" id="floatingInput"  name="age" required>
                 </div>
               </div>
       
               <div class="row">
                 <div class="col-6">
                   <label for="floatingInput">User Name</label>
-                  <input type="text" class="form-control" id="floatingInput" name="username">
+                  <input type="text" class="form-control" id="floatingInput" name="username" required>
                 </div>
                 <div class="col-6">
                   <label for="floatingInput">Email address</label>
-                  <input type="email" class="form-control" id="floatingInput" name="email">
+                  <input type="email" class="form-control" id="floatingInput" name="email" required>
                 </div>
                 </div>
 
                 <div class="row align-items-center">
                   <div class="col-6">
                     <label class="col-4">Profile Image</label>
-                    <input type="file" name="image" accept="image/*" class="form-control" />
+                    <input type="file" name="image" accept="image/*" class="form-control" required />
                   </div>
 
                   <div class="col-6">
                     <label for="floatingInput">Tell Us About Your Self</label>
-                    <textarea type="text" class="form-control" id="floatingInput"  name="description"></textarea>
+                    <textarea type="text" class="form-control" id="floatingInput"  name="description" required></textarea>
                   </div>
                 </div>
 
@@ -97,7 +97,7 @@
 
               <div class="col-md-12">
                 <label for="floatingPassword">Password</label>
-                <input type="password" class="form-control w-50 " id="floatingPassword"  name="password">
+                <input type="password" class="form-control w-50 " id="floatingPassword"  name="password" required>
               </div>
       
               <button class="w-50 mx-auto btn btn-lg mt-2 "  style="background-color: #006d77; color: white;" type="submit">Sign up</button>

@@ -3,11 +3,11 @@
 {% block title %} Update Profile   {% endblock %}
 
 {% block content %}
-<div class="container w-100 mx-auto mt-2">
-    All Appointments : 
+<div class="container w-100 mx-auto mt-2 mb-4">
+    <h3>All Appointments : </h3>
     <table class="table">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th>ID</th>
                 <th>Advisor Name</th>
                 <th> Appointment Date</th>
@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             {%for appointment in appointments%}
-            <tr>
+            <tr class="text-center">
                 <td> {{appointment.id}} </td>
                 <td> {{appointment.adviser.first_name}}   {{appointment.adviser.last_name}}</td>
                 <td> {{appointment.appointment_date}} </td>
@@ -47,6 +47,6 @@
             {%endfor%}
         </tbody>
     </table>
-</div>
+</div >
 
 {%endblock%}
